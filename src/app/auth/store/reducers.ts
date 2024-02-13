@@ -37,6 +37,31 @@ const authFeature = createFeature({
                 // registration failed, holds validationErrors
                 validationErrors: action.errors
             }
+        )),
+        on(authActions.login, (state) => (
+            {
+                ...state,
+                isSubmitting: true,
+                validationErrors: null
+            }
+        )),
+        // ngrx registerSuccess event handler
+        on(authActions.loginSuccess, (state, action) => (
+            {
+                ...state,
+                isSubmitting: false,
+                // currentUser who just registered
+                currentUser: action.currentUser
+            }
+        )),
+        // ngrx register event handler
+        on(authActions.loginFailure, (state, action) => (
+            {
+                ...state,
+                isSubmitting: false,
+                // registration failed, holds validationErrors
+                validationErrors: action.errors
+            }
         ))
     )
 })
